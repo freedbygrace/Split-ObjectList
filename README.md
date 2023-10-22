@@ -25,7 +25,7 @@ Write-Output -InputObject ($SplitObjectListResult)
 ```
 $SplitObjectListParameters = New-Object -TypeName 'System.Collections.Specialized.OrderedDictionary'
 	$SplitObjectListParameters.ByPercentage = $True
-	$SplitObjectListParameters.PercentageList = New-Object -TypeName 'System.Collections.Generic.List\[UInt32\]'
+	$SplitObjectListParameters.PercentageList = New-Object -TypeName 'System.Collections.Generic.List[UInt32]'
 		$SplitObjectListParameters.PercentageList.Add(5)
 		$SplitObjectListParameters.PercentageList.Add(10)
 		$SplitObjectListParameters.PercentageList.Add(15)
@@ -119,3 +119,4 @@ Most of the time, various "List" type objects are used with index removal and so
 [https://stackoverflow.com/questions/56990719/split-array-by-percentage](https://stackoverflow.com/questions/56990719/split-array-by-percentage)
 
 [https://www.infoworld.com/article/3666499/how-to-work-with-a-priority-queue-in-net-6.html](https://www.infoworld.com/article/3666499/how-to-work-with-a-priority-queue-in-net-6.html)
+
