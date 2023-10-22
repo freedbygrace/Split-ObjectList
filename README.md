@@ -24,16 +24,16 @@ Write-Output -InputObject ($SplitObjectListResult)
 ### EXAMPLE 2
 ```
 $SplitObjectListParameters = New-Object -TypeName 'System.Collections.Specialized.OrderedDictionary'
-$SplitObjectListParameters.ByPercentage = $True
- $SplitObjectListParameters.PercentageList = New-Object -TypeName 'System.Collections.Generic.List\[UInt32\]'
+  $SplitObjectListParameters.ByPercentage = $True
+  $SplitObjectListParameters.PercentageList = New-Object -TypeName 'System.Collections.Generic.List\[UInt32\]'
     $SplitObjectListParameters.PercentageList.Add(5)
     $SplitObjectListParameters.PercentageList.Add(10)
     $SplitObjectListParameters.PercentageList.Add(15)
     $SplitObjectListParameters.PercentageList.Add(20)
     $SplitObjectListParameters.PercentageList.Add(25)
     $SplitObjectListParameters.PercentageList.Add(25)
- $SplitObjectListParameters.InputObjectList = 1..200000
- $SplitObjectListParameters.Verbose = $True
+  $SplitObjectListParameters.InputObjectList = 1..200000
+  $SplitObjectListParameters.Verbose = $True
   $SplitObjectListParameters.ContinueOnError = $False
 
 $SplitObjectListResult = Split-ObjectList @SplitObjectListParameters
