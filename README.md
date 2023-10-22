@@ -11,7 +11,7 @@ Split-ObjectList [-ByPercentage] -PercentageList <UInt32[]> -InputObjectList <Ob
 ```
 
 ## DESCRIPTION
-Slightly more detailed description of what your function does
+This is the more performant method of breaking an object into chunks for various use cases.
 
 ## EXAMPLES
 
@@ -24,17 +24,17 @@ Write-Output -InputObject ($SplitObjectListResult)
 ### EXAMPLE 2
 ```
 $SplitObjectListParameters = New-Object -TypeName 'System.Collections.Specialized.OrderedDictionary'
-	$SplitObjectListParameters.ByPercentage = $True
-	$SplitObjectListParameters.PercentageList = New-Object -TypeName 'System.Collections.Generic.List[UInt32]'
-		$SplitObjectListParameters.PercentageList.Add(5)
-		$SplitObjectListParameters.PercentageList.Add(10)
-		$SplitObjectListParameters.PercentageList.Add(15)
-		$SplitObjectListParameters.PercentageList.Add(20)
-		$SplitObjectListParameters.PercentageList.Add(25)
-		$SplitObjectListParameters.PercentageList.Add(25)
-	$SplitObjectListParameters.InputObjectList = 1..200000
-	$SplitObjectListParameters.Verbose = $True
-	$SplitObjectListParameters.ContinueOnError = $False
+$SplitObjectListParameters.ByPercentage = $True
+ $SplitObjectListParameters.PercentageList = New-Object -TypeName 'System.Collections.Generic.List\[UInt32\]'
+    $SplitObjectListParameters.PercentageList.Add(5)
+    $SplitObjectListParameters.PercentageList.Add(10)
+    $SplitObjectListParameters.PercentageList.Add(15)
+    $SplitObjectListParameters.PercentageList.Add(20)
+    $SplitObjectListParameters.PercentageList.Add(25)
+    $SplitObjectListParameters.PercentageList.Add(25)
+ $SplitObjectListParameters.InputObjectList = 1..200000
+ $SplitObjectListParameters.Verbose = $True
+  $SplitObjectListParameters.ContinueOnError = $False
 
 $SplitObjectListResult = Split-ObjectList @SplitObjectListParameters
 
@@ -110,9 +110,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Management.Automation.PSObject[]
 ## NOTES
-This is the more performant way of breaking an object into chunks for various use cases.
-Most of the time, various "List" type objects are used with index removal and so forth, which can work, but is not ideal.
+Most of the time, various "List" type objects are used with index removal and so forth, which can work, but is not the most performant.
 
 ## RELATED LINKS
 
