@@ -8,7 +8,7 @@ Function Split-ObjectList
           Provides the functionality to split a list of objects into chunks based on the specified mode.
           
           .DESCRIPTION
-          This is the more performant method of breaking an object into chunks for various use cases.
+          This is the more performant method of breaking an object into chunks for various use cases. A list of hundreds of thousands of objects can be broken apart in seconds.
           
           .PARAMETER ByPercentage
           Places the function into "ByPercentage" mode. This will split the list of objects based on the provided percentage list.
@@ -46,7 +46,7 @@ Function Split-ObjectList
           Write-Output -InputObject ($SplitObjectListResult)
 
           .NOTES
-          Most of the time, various "List" type objects are used with index removal and so forth, which can work, but is not the most performant.
+          If the list of input objects cannot be divided evenly, the stragglers will be automatically added to the final wave.
           
           .LINK
           https://stackoverflow.com/questions/56990719/split-array-by-percentage
@@ -223,6 +223,8 @@ Function Split-ObjectList
                                 $PercentageListCounter = 1
 
                                 $PercentageListCount = ($PercentageList | Measure-Object).Count
+
+                                $PercentageListUpperBound = $PercentageList.GetUpperBound(0)
             
                                 For ($PercentageListIndex = 0; $PercentageListIndex -lt $PercentageListCount; $PercentageListIndex++)
                                   {
@@ -238,7 +240,7 @@ Function Split-ObjectList
                                         {
                                             {($_ -eq $True)}
                                               {                                    
-                                                  $InputObjectPercentageFormula = {[System.Math]::Round((($InputObjectListCount * $Percentage) / 100), 0)}
+                                                  $InputObjectPercentageFormula = {[System.Math]::Floor((($InputObjectListCount * $Percentage) / 100))}
                   
                                                   $InputObjectPercentageCalculation = $InputObjectPercentageFormula.InvokeReturnAsIs()
 
@@ -264,6 +266,34 @@ Function Split-ObjectList
                                                         $InputObject = $InputObjectQueue.Dequeue()
                                           
                                                         $OutputObjectProperties.Members.Add($InputObject)
+                                                    }
+
+                                                  Switch ($PercentageListIndex)
+                                                    {
+                                                        {($_ -eq $PercentageListUpperBound)}
+                                                          {
+                                                              Switch ($InputObjectQueue.Count -gt 0)
+                                                                {
+                                                                    {($_ -eq $True)}
+                                                                      {
+                                                                          $LoggingDetails.LogMessage = "$($GetCurrentDateTimeMessageFormat.Invoke()) - The $($InputObjectListCount) input object(s) could not be divided evenly."
+                                                                          Write-Verbose -Message ($LoggingDetails.LogMessage)
+                                                                          
+                                                                          $LoggingDetails.LogMessage = "$($GetCurrentDateTimeMessageFormat.Invoke()) - Attempting to add the $($InputObjectQueue.Count) remaining queue member(s) to wave $($OutputObjectProperties.Wave). Please Wait..."
+                                                                          Write-Verbose -Message ($LoggingDetails.LogMessage)
+                                                                          
+                                                                          While ($InputObjectQueue.Count -gt 0)
+                                                                            {
+                                                                                $InputObject = $InputObjectQueue.Dequeue()
+                                          
+                                                                                $OutputObjectProperties.Members.Add($InputObject)
+                                                                            }
+
+                                                                          $LoggingDetails.LogMessage = "$($GetCurrentDateTimeMessageFormat.Invoke()) - New Wave Member Count: $($OutputObjectProperties.Members.Count)"
+                                                                          Write-Verbose -Message ($LoggingDetails.LogMessage)
+                                                                      }
+                                                                }
+                                                          }
                                                     }
 
                                                   $OutputObjectProperties.Members = $OutputObjectProperties.Members.ToArray()
