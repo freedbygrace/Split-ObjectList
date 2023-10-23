@@ -1,4 +1,4 @@
-﻿## Microsoft Function Naming Convention: http://msdn.microsoft.com/en-us/library/ms714428(v=vs.85).aspx
+## Microsoft Function Naming Convention: http://msdn.microsoft.com/en-us/library/ms714428(v=vs.85).aspx
 
 #region Function Split-ObjectList
 Function Split-ObjectList
@@ -23,7 +23,7 @@ Function Split-ObjectList
           Ignore errors.
           
           .EXAMPLE
-          $SplitObjectListResult = Split-ObjectList -ByPercentage -PercentageList @(5, 10, 15, 20, 25, 25) -InputObjectList (1..200000) -Verbose
+          $SplitObjectListResult = Split-ObjectList -ByPercentage -PercentageList @(5, 10, 15, 20, 25, 25) -InputObjectList (1..$(Get-Random -Minimum 100000 -Maximum 300000)) -Verbose
 
           Write-Output -InputObject ($SplitObjectListResult)
           
@@ -37,7 +37,7 @@ Function Split-ObjectList
               $SplitObjectListParameters.PercentageList.Add(20)
               $SplitObjectListParameters.PercentageList.Add(25)
               $SplitObjectListParameters.PercentageList.Add(25)
-	          $SplitObjectListParameters.InputObjectList = 1..200000
+	          $SplitObjectListParameters.InputObjectList = 1..$(Get-Random -Minimum 100000 -Maximum 300000)
 	          $SplitObjectListParameters.Verbose = $True
             $SplitObjectListParameters.ContinueOnError = $False
 
@@ -247,7 +247,8 @@ Function Split-ObjectList
                   
                                                   $OutputObjectProperties = New-Object -TypeName 'System.Collections.Specialized.OrderedDictionary'
                                                     $OutputObjectProperties.Wave = $PercentageListCounter
-                                                    $OutputObjectProperties.Count = 0
+                                                    $OutputObjectProperties.Percentage = $Percentage
+                                                    $OutputObjectProperties.MemberCount = 0
                                                     $OutputObjectProperties.Members = New-object -TypeName 'System.Collections.Generic.List[System.Object]'
 
                                                   $LoggingDetails.LogMessage = "$($GetCurrentDateTimeMessageFormat.Invoke()) - Attempting to process wave $($OutputObjectProperties.Wave). Please Wait..."
@@ -267,7 +268,7 @@ Function Split-ObjectList
 
                                                   $OutputObjectProperties.Members = $OutputObjectProperties.Members.ToArray()
                                     
-                                                  $OutputObjectProperties.Count = $OutputObjectProperties.Members.Count
+                                                  $OutputObjectProperties.MemberCount = $OutputObjectProperties.Members.Count
                                     
                                                   $OutputObject = New-Object -TypeName 'System.Management.Automation.PSObject' -Property ($OutputObjectProperties)
 
