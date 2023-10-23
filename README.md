@@ -89,7 +89,7 @@ Accept wildcard characters: False
 ```
 
 ### -PercentageList
-The list of percentages to split the list of objects by.
+The list of percentages to split the list of objects by. The cumulative value must be equal to 100.
 
 ```yaml
 Type: System.UInt32[]
