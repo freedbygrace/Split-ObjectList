@@ -11,7 +11,7 @@ Split-ObjectList [-ByPercentage] -PercentageList <UInt32[]> -InputObjectList <Ob
 ```
 
 ## DESCRIPTION
-This is the more performant method of breaking an object into chunks for various use cases.
+This is the more performant method of breaking an object into chunks for various use cases. A list of hundreds of thousands of objects can be broken apart in seconds.
 
 ## EXAMPLES
 
@@ -112,7 +112,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.Management.Automation.PSObject[]
 ## NOTES
-Most of the time, various "List" type objects are used with index removal and so forth, which can work, but is not the most performant.
+If the list of input objects cannot be divided evenly, the stragglers will be automatically added to the final wave.
 
 ## RELATED LINKS
 
@@ -120,91 +120,94 @@ Most of the time, various "List" type objects are used with index removal and so
 
 [https://www.infoworld.com/article/3666499/how-to-work-with-a-priority-queue-in-net-6.html](https://www.infoworld.com/article/3666499/how-to-work-with-a-priority-queue-in-net-6.html)
 
+## SAMPLE LOG OUTPUT
+```
+VERBOSE: 10/22/2023 20:38:17.036 - Function 'Split-ObjectList' is beginning. Please Wait...
+VERBOSE: 10/22/2023 20:38:17.045 - Available Function Parameter(s) = -ByPercentage:SwitchParameter, -PercentageList:UInt32[], -InputObjectList:Object[], -ContinueOnError:SwitchParameter
+VERBOSE: 10/22/2023 20:38:17.046 - Supplied Function Parameter(s) = -ByPercentage:SwitchParameter, -PercentageList:UInt32[], -InputObjectList:Object[], -Verbose:SwitchParameter, -ContinueOnError:SwitchParameter
+VERBOSE: 10/22/2023 20:38:17.047 - Execution of Split-ObjectList began on Sunday, October 22, 2023 @ 08:38:17.035 PM
+VERBOSE: 10/22/2023 20:38:17.048 - Parameter Set Name: ByPercentage
+VERBOSE: 10/22/2023 20:38:18.368 - Input Object List Count: 194081
+VERBOSE: 10/22/2023 20:38:18.369 - Attempting to process percentage list entry 1 of 6. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.369 - Percentage: 5%
+VERBOSE: 10/22/2023 20:38:18.371 - Percentage Calculation: 9704
+VERBOSE: 10/22/2023 20:38:18.376 - Attempting to process wave 1. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.378 - Attempting to add 9704 member(s) to wave 1. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.386 - Successfully completed the processing of wave 1.
+VERBOSE: 10/22/2023 20:38:18.387 - There are now 184377 objects remaining in the queue.
+VERBOSE: 10/22/2023 20:38:18.387 - Attempting to process percentage list entry 2 of 6. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.388 - Percentage: 10%
+VERBOSE: 10/22/2023 20:38:18.389 - Percentage Calculation: 19408
+VERBOSE: 10/22/2023 20:38:18.392 - Attempting to process wave 2. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.393 - Attempting to add 19408 member(s) to wave 2. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.399 - Successfully completed the processing of wave 2.
+VERBOSE: 10/22/2023 20:38:18.399 - There are now 164969 objects remaining in the queue.
+VERBOSE: 10/22/2023 20:38:18.4 - Attempting to process percentage list entry 3 of 6. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.401 - Percentage: 15%
+VERBOSE: 10/22/2023 20:38:18.401 - Percentage Calculation: 29112
+VERBOSE: 10/22/2023 20:38:18.402 - Attempting to process wave 3. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.403 - Attempting to add 29112 member(s) to wave 3. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.411 - Successfully completed the processing of wave 3.
+VERBOSE: 10/22/2023 20:38:18.412 - There are now 135857 objects remaining in the queue.
+VERBOSE: 10/22/2023 20:38:18.412 - Attempting to process percentage list entry 4 of 6. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.413 - Percentage: 20%
+VERBOSE: 10/22/2023 20:38:18.413 - Percentage Calculation: 38816
+VERBOSE: 10/22/2023 20:38:18.415 - Attempting to process wave 4. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.415 - Attempting to add 38816 member(s) to wave 4. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.427 - Successfully completed the processing of wave 4.
+VERBOSE: 10/22/2023 20:38:18.428 - There are now 97041 objects remaining in the queue.
+VERBOSE: 10/22/2023 20:38:18.428 - Attempting to process percentage list entry 5 of 6. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.429 - Percentage: 25%
+VERBOSE: 10/22/2023 20:38:18.429 - Percentage Calculation: 48520
+VERBOSE: 10/22/2023 20:38:18.431 - Attempting to process wave 5. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.431 - Attempting to add 48520 member(s) to wave 5. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.446 - Successfully completed the processing of wave 5.
+VERBOSE: 10/22/2023 20:38:18.447 - There are now 48521 objects remaining in the queue.
+VERBOSE: 10/22/2023 20:38:18.447 - Attempting to process percentage list entry 6 of 6. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.448 - Percentage: 25%
+VERBOSE: 10/22/2023 20:38:18.448 - Percentage Calculation: 48520
+VERBOSE: 10/22/2023 20:38:18.449 - Attempting to process wave 6. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.45 - Attempting to add 48520 member(s) to wave 6. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.466 - The 194081 input object(s) could not be divided evenly.
+VERBOSE: 10/22/2023 20:38:18.467 - Attempting to add the 1 remaining queue member(s) to wave 6. Please Wait...
+VERBOSE: 10/22/2023 20:38:18.467 - New Wave Member Count: 48521
+VERBOSE: 10/22/2023 20:38:18.469 - Successfully completed the processing of wave 6.
+VERBOSE: 10/22/2023 20:38:18.47 - There are now 0 objects remaining in the queue.
+VERBOSE: 10/22/2023 20:38:18.47 - Execution of Split-ObjectList ended on Sunday, October 22, 2023 @ 08:38:18.47 PM
+VERBOSE: 10/22/2023 20:38:18.471 - Function execution took 0 hour(s), 0 minute(s), 1 second(s), and 434 millisecond(s)
+VERBOSE: 10/22/2023 20:38:18.472 - Function 'Split-ObjectList' is completed.
+```
+
 ## SAMPLE OUTPUT:
 
 ```
 Wave        : 1
 Percentage  : 5
-MemberCount : 12110
+MemberCount : 9704
 Members     : {1, 2, 3, 4...}
 
 Wave        : 2
 Percentage  : 10
-MemberCount : 24219
-Members     : {12111, 12112, 12113, 12114...}
+MemberCount : 19408
+Members     : {9705, 9706, 9707, 9708...}
 
 Wave        : 3
 Percentage  : 15
-MemberCount : 36329
-Members     : {36330, 36331, 36332, 36333...}
+MemberCount : 29112
+Members     : {29113, 29114, 29115, 29116...}
 
 Wave        : 4
 Percentage  : 20
-MemberCount : 48439
-Members     : {72659, 72660, 72661, 72662...}
+MemberCount : 38816
+Members     : {58225, 58226, 58227, 58228...}
 
 Wave        : 5
 Percentage  : 25
-MemberCount : 60548
-Members     : {121098, 121099, 121100, 121101...}
+MemberCount : 48520
+Members     : {97041, 97042, 97043, 97044...}
 
 Wave        : 6
 Percentage  : 25
-MemberCount : 60548
-Members     : {181646, 181647, 181648, 181649...}
-```
-
-## SAMPLE LOG OUTPUT
-```
-VERBOSE: 10/22/2023 20:08:21.727 - Function 'Split-ObjectList' is beginning. Please Wait...
-VERBOSE: 10/22/2023 20:08:21.751 - Available Function Parameter(s) = -ByPercentage:SwitchParameter, -PercentageList:UInt32[], -InputObjectList:Object[], -ContinueOnError:SwitchParameter
-VERBOSE: 10/22/2023 20:08:21.752 - Supplied Function Parameter(s) = -ByPercentage:SwitchParameter, -PercentageList:UInt32[], -InputObjectList:Object[], -Verbose:SwitchParameter, -ContinueOnError:SwitchParameter
-VERBOSE: 10/22/2023 20:08:21.753 - Execution of Split-ObjectList began on Sunday, October 22, 2023 @ 08:08:21.726 PM
-VERBOSE: 10/22/2023 20:08:21.754 - Parameter Set Name: ByPercentage
-VERBOSE: 10/22/2023 20:08:23.407 - Input Object List Count: 242194
-VERBOSE: 10/22/2023 20:08:23.408 - Attempting to process percentage list entry 1 of 6. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.409 - Percentage: 5%
-VERBOSE: 10/22/2023 20:08:23.411 - Percentage Calculation: 12110
-VERBOSE: 10/22/2023 20:08:23.412 - Attempting to process wave 1. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.412 - Attempting to add 12110 member(s) to wave 1. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.417 - Successfully completed the processing of wave 1.
-VERBOSE: 10/22/2023 20:08:23.417 - There are now 230084 objects remaining in the queue.
-VERBOSE: 10/22/2023 20:08:23.418 - Attempting to process percentage list entry 2 of 6. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.419 - Percentage: 10%
-VERBOSE: 10/22/2023 20:08:23.419 - Percentage Calculation: 24219
-VERBOSE: 10/22/2023 20:08:23.42 - Attempting to process wave 2. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.421 - Attempting to add 24219 member(s) to wave 2. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.43 - Successfully completed the processing of wave 2.
-VERBOSE: 10/22/2023 20:08:23.431 - There are now 205865 objects remaining in the queue.
-VERBOSE: 10/22/2023 20:08:23.432 - Attempting to process percentage list entry 3 of 6. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.432 - Percentage: 15%
-VERBOSE: 10/22/2023 20:08:23.433 - Percentage Calculation: 36329
-VERBOSE: 10/22/2023 20:08:23.434 - Attempting to process wave 3. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.434 - Attempting to add 36329 member(s) to wave 3. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.448 - Successfully completed the processing of wave 3.
-VERBOSE: 10/22/2023 20:08:23.449 - There are now 169536 objects remaining in the queue.
-VERBOSE: 10/22/2023 20:08:23.453 - Attempting to process percentage list entry 4 of 6. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.454 - Percentage: 20%
-VERBOSE: 10/22/2023 20:08:23.455 - Percentage Calculation: 48439
-VERBOSE: 10/22/2023 20:08:23.457 - Attempting to process wave 4. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.458 - Attempting to add 48439 member(s) to wave 4. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.474 - Successfully completed the processing of wave 4.
-VERBOSE: 10/22/2023 20:08:23.475 - There are now 121097 objects remaining in the queue.
-VERBOSE: 10/22/2023 20:08:23.475 - Attempting to process percentage list entry 5 of 6. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.476 - Percentage: 25%
-VERBOSE: 10/22/2023 20:08:23.477 - Percentage Calculation: 60548
-VERBOSE: 10/22/2023 20:08:23.48 - Attempting to process wave 5. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.48 - Attempting to add 60548 member(s) to wave 5. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.5 - Successfully completed the processing of wave 5.
-VERBOSE: 10/22/2023 20:08:23.501 - There are now 60549 objects remaining in the queue.
-VERBOSE: 10/22/2023 20:08:23.502 - Attempting to process percentage list entry 6 of 6. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.502 - Percentage: 25%
-VERBOSE: 10/22/2023 20:08:23.503 - Percentage Calculation: 60548
-VERBOSE: 10/22/2023 20:08:23.504 - Attempting to process wave 6. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.504 - Attempting to add 60548 member(s) to wave 6. Please Wait...
-VERBOSE: 10/22/2023 20:08:23.529 - Successfully completed the processing of wave 6.
-VERBOSE: 10/22/2023 20:08:23.53 - There are now 1 objects remaining in the queue.
-VERBOSE: 10/22/2023 20:08:23.53 - Execution of Split-ObjectList ended on Sunday, October 22, 2023 @ 08:08:23.53 PM
-VERBOSE: 10/22/2023 20:08:23.532 - Function execution took 0 hour(s), 0 minute(s), 1 second(s), and 803 millisecond(s)
-VERBOSE: 10/22/2023 20:08:23.532 - Function 'Split-ObjectList' is completed.
+MemberCount : 48521
+Members     : {145561, 145562, 145563, 145564...}
 ```
